@@ -596,6 +596,8 @@ The `greater' integral formula gives the same result for $C$ not necessarily a c
 \begin{remark}
   In the analyticity theorem,
   $$ c_k = \frac{f^{(k)}(z_0)}{k!}. $$
+  In particular,
+  $$ f'(z) = \frac{1}{2\pi i} \int_{\pd B} \frac{f(\gz)}{\p{\gz-z}^2} \d \gz. $$
 \end{remark}
 
 \subsection{Morera's theorem}
@@ -626,3 +628,121 @@ The `greater' integral formula gives the same result for $C$ not necessarily a c
 \begin{idea}
   Follows from the Cauchy's minor integral formula (page \pageref{Cauchy, minor integral formula}).
 \end{idea}
+
+\section{Maximal modulus principle}
+
+\begin{theorem}[maximal modulus principle]
+  Let $f \col G \to \C$ be holomorphic. Then $\a{f}$ has no strict maximum in $G$.
+\end{theorem}
+
+\begin{proof}
+  Suppose $f$ has a non-strict maximum in $G$. Then
+  \begin{align*}
+    \a{f(a)}
+    &= \frac{1}{2\pi} \a{\int_C f(z) \d z} \\
+    &\le \frac{1}{2\pi} {\int_C \a{f(z)} \d z} \\
+    &\le \a{f(a)}.
+  \end{align*}
+  Here every inequality must be an equality.
+  Then $\a{f(z)} = \a{f(a)}$ for all $z$ in some disk $D$ around $a$.
+  
+  Suppose $f'(a) \ne 0$.
+  Then $f$ is a local homeomorphism around $a$, which means it must map a ball in $\C$ into a ball in $\C$. But in any ball there are points with varying modulus.
+  
+  Therefore, $f$ is constant, what completes the proof.
+\end{proof}
+
+\section{Liouville's theorem}
+
+\begin{theorem}[Liouville]
+  A bounded entire function is constant.  
+\end{theorem}
+
+A powerful theorem.
+
+\begin{proof}
+  From principal estimate and the formula for $f'$:
+  \begin{align*}
+    \a{f'(z)}
+    &\le \frac{M}{2\pi} \int_C \frac{r}{\p{r - \a{z}}} \d t \\
+    &= \frac{Mr}{\p{r-\a{z}}^2} \\
+    &\xleftarrow[r \to \infty]{} 0.
+  \end{align*}
+\end{proof}
+
+\subsection{Principal theorem of algebra}
+
+\begin{corollary}[principal theorem of algebra]
+  $\C$ is algebraically closed.
+\end{corollary}
+
+\begin{proof}
+  Suppose $p \col \C \to \C$ of $\deg p > 0$ has no roots: $\a{p} > \gd$ for some $\gd > 0$. Then $1/p$ is an entire function, and, as such, is either unbounded or constant. It is not constant, so it must be unbounded; but $1/\a{p} < 1/\gd$ --- a contradiction.
+\end{proof}
+
+\section{Harmonic functions}
+
+\begin{definition}
+  A function $f \col G \to \R$ is \emph{harmonic}, iff there exists a holomorphic $g \col G \to \C$ such that $\Re g = f$. If $\wt f = \Im g$, $f$ and $\wt f$ are said to be \emph{harmonic conjugates}.
+\end{definition}
+
+\begin{lemma}[Laplace's equations]
+  If $u+iv \in \Hol G$, then
+  $$ u'_{xx} + v'_{yy} = 0. $$
+\end{lemma}
+
+\begin{proof}
+  From Cauchy-Riemann equations.
+\end{proof}
+
+\begin{definition}
+  The differential operator
+  $$ \Delta = \sum_{j=1}^n \p{\frac{\pd}{\pd x_j}}^2 $$
+  is called the \emph{Laplace operator}.
+\end{definition}
+
+\begin{definition}
+  A function $f \col H \to \R$ is called \emph{harmonic}, iff
+  $$ \Delta f = 0. $$
+\end{definition}
+
+\begin{theorem}
+  If $u \in C^2(G)$ and $\Delta u = 0$, then every $a \in G$ has a neighbourhood $U_a$ such that $u|_{U_a}$ is harmonic.
+\end{theorem}
+
+\begin{proof}
+  Let $\phi = \frac{\pd u}{\pd x}$ and $\psi = -\frac{\pd u}{\pd y}$. We have
+  $$ \frac{\pd \psi}{\pd x} = \frac{\pd \phi}{\pd y}, $$
+  so there exists a function $v$ such that $\frac{\pd v}{\pd y} = \phi$ and $\frac{\pd v}{\pd x} = \psi$. This $v$ is harmonically conjugate to $u$, since the Cauchy-Riemann equations are satisfied.
+\end{proof}
+
+\section{Integrals of closed forms}
+
+\begin{lemma}
+  Suppose $\phi = \d \Phi$ in $G$. Then
+  $$ \int_\gg \phi = \Phi(\gg(b)) - \Phi(\gg(a)) $$
+  for every path $\gg \col [a, b] \to G$.
+\end{lemma}
+
+\begin{proof}
+  By the theorem on exact forms.
+\end{proof}
+
+\begin{definition}
+  A continuous function $F \col [a, b] \to \C$ is called the \emph{antiderivative along a path} $\gg \col [a, b] \to G$ of a 1-form $\phi$, iff for every $t \in [a, b]$ exists an antiderivative $\Phi$ in some neighbourhood $V_t \ni \gg(t)$ such that $F(t) = \Phi \circ \gg(t)$ for all $t \in V_t$.
+\end{definition}
+
+\begin{theorem}
+  ~\begin{enumerate}
+    \item The antiderivative $F$ exists.
+    \item If $F_1$ and $F_2$ are two antiderivatives, there exists $c \in \C$ such that $F_1 = F_2 + c$.
+  \end{enumerate}  
+\end{theorem}
+
+\begin{proof}[Proof of uniqueness]
+  It follows from the definition that $F$ is locally constant.
+\end{proof}
+
+\begin{proof}[Proof of existence]
+  Split $[a, b]$ into small subintervals (small enough for the form $\phi$ to have an antiderivative on the $\gg$-image of each). Choose constants in their intersections in such a way that they make an actual function (antiderivatives differ by a constant).
+\end{proof}
