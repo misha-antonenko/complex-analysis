@@ -1,0 +1,628 @@
+\section{Notation}
+
+For the rest of this course, $\N$ contains 0.
+
+\section{Introduction}
+
+\begin{definition}
+  Unless stated otherwise, $G \ss \C$ and $H \ss \R^n$ are arbitrary domains.
+\end{definition}
+
+\begin{definition}
+  A function $f \col G \to \C$ is \emph{analytic}, if for any $z_0 \in G$ there exists $r > 0$ such that $D_r(z_0) \ss G$, and
+  $$ f(z) = \sum_{n \in \N_0} a_n (z - z_0)^n $$
+  for some $\b{a_n}$ and every $z \in \D_r(z_0)$. 
+\end{definition}
+
+\begin{definition}
+  $\phi \col G \to \C$ is \emph{holomorphic} at $z_0$, iff exists
+  $$ \phi'(z_0) = \lim_{h \to 0} \frac{\phi(z_0+h)-\phi(z_0)}{h}. $$
+  Here $h \in \C$.
+  If a function $f$ is holomorphic at every point of $E \ss \C$, we write $f \in \Hol E$.
+\end{definition}
+
+\begin{definition}
+  A function $f \in \Hol \C$ is called \emph{entire}.
+\end{definition}
+
+\begin{theorem}[Cauchy-Riemann equations]
+  $f \col G \to \C$ is holomorphic at $z_0$ iff
+  \begin{align*}
+    \frac{\pd u}{\pd x} &= -\frac{\pd v}{\pd y}, x  x x&
+    \frac{\pd u}{\pd y} &= \frac{\pd v}{\pd x}
+  \end{align*}
+  at $\p{x_0, y_0}$,
+  where $u(x, y)+iv(x,y) = f(x+iy)$ and $z_0 = x_0+iy_0$.
+\end{theorem}
+That is, the Jacobi matrix of $u \times v$ is in the image of the standard embedding of $\C$ into $\on{M}_2(\R)$:
+$$ a+ib \mapsto \begin{pmatrix}
+  a & b \\
+  b & -a
+\end{pmatrix}
+$$
+
+\begin{proof}[Has been proven in semester II.]
+\end{proof}
+
+\begin{lemma}
+  If $f \col G \to \C$ is analytic, then it is holomorphic.
+\end{lemma}
+
+\begin{proof}
+  The series for $f(z)$ can be differentiated.
+\end{proof}
+
+\begin{theorem}[Cauchy]
+  Let $f \col G \to \C$ be holomorphic.
+  Then it is analytic at every $x_0 \in G$, with the radius of convergence $r$ being equal to $r = \dist\p{x_0, \C \sm G}$. 
+\end{theorem}
+
+The proof will be given shortly.
+
+\section{Differential forms}
+
+\subsection{A reminder}
+
+\begin{definition}
+  If we have a form
+  $$ \go(h) = \sum_I \go_I \cdot h^I, $$
+  its integral (also a form) is defined as
+  $$ \int \go = \int \sum_I \go_I \circ x \cdot D_I, $$
+  where $D_I$ is the determinant of the rows $I$ of the Jacobi matrix $\d x$.
+\end{definition}
+
+\subsection{Integral of a form along a path}
+
+\begin{definition}[integral along a curve] 
+  Let $\gg \col [a, b] \to \R^n$ be a $C^1$ function. If $\phi = f_1 \d x_1 + \dots + f_n \d x_n$, where $f_i$ are continuous complex functions on $G$, then
+$$ \int_\gg \phi := \sum_{j=1}^n\ \int_{t=a}^b f_j\p{\gg(t)} \gg'_j(t). $$
+\end{definition}
+
+Evidently, the integral over a one-dimensional submanifold does not depend on parametrisation. We will further use that to write integrals over subsets of $\C$, not curves.
+
+\begin{remark}
+  We may only require that $\gg$ is rectifiable.
+  In this case, the integral will be in the sense of Stieltjes:
+  $$ \int_\gg \Phi = \sum_{j=1}^n \int_{t=a}^b f_j\p{\gg(t)} \dd \gg_j. $$
+  We will not need this during this course.
+\end{remark}
+
+\begin{lemma}
+  Integral of differential forms along a path is linear with respect to the form.
+\end{lemma}
+
+\begin{proof}
+  Evident.
+\end{proof}
+
+\begin{lemma}[change of variables]
+  Let $\ga \col [c, d] \to [a, b]$ be a $C^1$-homeomorphism, and $\wt \gg = \gg \circ \ga$. Then
+  $$ \int_{\wt \gg} \phi = \pm \sum_{j=1}^n \ \int_{t=c}^d f_j \circ \gg \circ \ga(s) \cdot \gg'_j\circ\ga(s) \cdot \ga'(s). $$
+  The sign here depends on whether $\ga$ is increasing or decreasing.
+\end{lemma}
+
+\begin{proof}
+  Follows from the change-of-variables formula for the Riemann integral.
+\end{proof}
+
+\begin{definition}
+  Let $\ga, \gb$ be $C^1$-paths. Their \emph{concatenation} $\ga \gb$ is defined as
+  $$ \gg(t) =
+  \begin{cases}
+    \ga(t), & t \in [a, b], \\
+    \gb \circ \phi(t), & t \in [b, c],
+  \end{cases}
+  $$
+  where $\phi \col [b, c] \to [a', b']$ is a homeomorphism.
+\end{definition}
+
+\begin{definition}
+  A path $\gg$ is \emph{piecewise smooth}, iff it is a finite concatenation of smooth paths.
+\end{definition}
+
+\begin{definition}
+  The integral of a form along a piecewise smooth path is the sum of integrals over its components.
+\end{definition}
+
+\begin{definition}
+  If $\phi = \sum \phi_j \d x_j$ is a differential form, we denote
+  $$ \n{\phi} = \sqrt{\sum_{j=1}^n \phi_j^2}. $$
+\end{definition}
+
+Differential 1-forms are simply functions between Euclidean spaces.
+
+\begin{theorem}[principal estimate]
+  If $\gg$ is piecewise smooth and $\phi$ is a continuous differential 1-form in a neighbourhood of $\im \gg$, then
+  $$ \a{\ \int_\gg \phi\ } \le l(\gg) \cdot \sup_{x \in \im \gg} \n{\phi(x)}. $$
+\end{theorem}
+
+\begin{idea}
+  CBS.
+\end{idea}
+
+\section{Antiderivatives}
+
+\begin{definition}
+  Let $\go$ be be a differential 1-form in $G$.
+  Its \emph{derivative} is the form
+  $$ \d \go = \sum_{j=1}^n \frac{\pd \go_j}{\pd x} \d x_j. $$
+\end{definition}
+
+\begin{definition}
+  Let $G \ss \R^n$ be a differential form.
+  $F \col G \to \C$ is called the \emph{antiderivative} of $\Phi$, iff $\d F = \Phi$. 
+\end{definition}
+
+\begin{definition}
+  A differential form $\go$ is
+  \begin{enumerate}
+    \item \emph{exact}, iff it has an antiderivative;
+    \item \emph{closed}, iff every point $x \in G$ has a neighbourhood where $\go$ is exact.
+  \end{enumerate}
+\end{definition}
+
+  Observe that this definition differs from the one given in the semester III. This one is more general: the previous one depended on smoothness.
+
+\begin{lemma}
+  Suppose $\go$ is a $C^1$ differential 1-form in $G$.
+  Then $\go$ is closed iff
+  $$ \pd_i \go_j = \pd_j \go_i $$
+  for all $i, j \in \b{1, \dots, n}$.
+\end{lemma}
+
+\begin{proof}[Proof of $\Rightarrow$.]
+  Locally, we have an antiderivative $\Omega$, so $\pd_j \Omega = \go_j$.
+  Then
+  $$ \pd_i \go_j = \pd_{i} \pd_j \Omega = \pd_j \pd_i \Omega = \pd_j \go_i. $$
+\end{proof}
+
+\begin{proof}[Proof of $\Leftarrow$.]
+  We know from semester III that every differential form $\go$ such that $\d \go = 0$ is exact. But this is true of $\go$.
+\end{proof}
+
+\begin{lemma}
+  Let $\gg$ be a piecewise smooth path with $\im \gg \ss G$ and ends $A, B$. Then
+  \begin{equation}
+    \label{NL}
+    \int_\gg \d F = F(B) - F(A).
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  From the Newton-Leibniz formula.
+\end{proof}
+
+\begin{theorem}
+  Every two points in $G$ can be connected by piecewise linear path.  
+\end{theorem}
+
+\begin{proof}[A well-known fact.]
+\end{proof}
+
+\begin{definition}
+  Let $\Phi$ be a differential form in a region $H \ss \R^n$.
+  We call $H$ a \emph{$\Phi$-balanced}\footnote{My own term.} region, iff
+  $ \int_\gg \Phi = 0 $
+  for every closed curve $\gg$ with $\im \gg \ss H$.
+\end{definition}
+
+\begin{theorem}[reformulations of `exact']
+  Let $\Phi$ be a differential form in $H \ss \R^n$ with continuous coefficients. Equivalent are:
+  \begin{enumerate}
+    \item $\int_\gg \Phi$ depends on $A$ and $B$ only.
+    \item $H$ is $\Phi$-balanced.
+    \item $\Phi$ is exact. 
+  \end{enumerate} 
+\end{theorem}
+
+\begin{proof}[Proof of $3 \Rightarrow 2$.]
+  See \eqref{NL}.
+\end{proof}
+
+\begin{proof}[Proof of $2 \Rightarrow 1$.]
+  Concatenate paths between two points and get a closed path. But the integral (which is zero by hypothesis) splits into two. Next we use that it depends on the direction of the path.
+\end{proof}
+
+\begin{proof}[Proof of $1 \Rightarrow 3$.]
+  Fix $A_0 \in G$. For any $x \in H$, let $\gg$ be a piecewise linear path $A_0 \leadsto x$. Define
+  $$ F(x) = \int_\gg \Phi. $$
+  Since the integral depends only on $x$, this is correctly defined function
+  We assert that $F$ is an antiderivative for $\Phi$; that is, the partial derivatives of $F$ are components of $\Phi$.
+  To see this, consider the path
+  $$ A_0 \leadsto_\gg x \leadsto_\gb x+te_j, $$
+  where the last part $\gb$ is linear.
+  Then
+  \begin{align*}
+    \frac{F(x+te_j) - F(x)}{t}
+    &= \frac{\int_\gg \Phi + \int_{\gb} \Phi - \int_\gg \Phi}{t}  \\
+    &= \frac{1}{t} \int_{\gb} \Phi \\
+    &= \frac{1}{t} { \sum_{k=1}^n\ \int_{\gt=0}^t f_k\p{x+\gt e_j} \gb_k'(\gt) } \\
+    &= \frac{1}{t} \int_{\gt=0}^t f_j\p{x+\gt e_j} \\
+    &\xrightarrow[t \to 0]{} {f_j(x)}.
+  \end{align*}
+\end{proof}
+
+\begin{definition}
+  We call a region $H \ss \R^2$ \emph{rectangle-astroid}\footnote{My own term.}, iff there exists $x_0 \in H$ such that for every $x \in H$ the 2-dimensional rectangle with sides parallel to the axes, having $x_0$ and $x$ as diametral points, lies in $H$ together with its closure. The rectangle in this context is called \emph{central}.
+\end{definition}
+
+This definition is long, but it highlights what we need to use to prove the following proposition for circles.
+
+\begin{lemma}[addition to the theorem]
+  Let $H \ss \R^2$ be a rectangle-astroid region. Then $H$ being $\Phi$-balanced is also equivalent to
+  $$ \int_Q \Phi = 0 $$
+  for every 1-dimensional central rectangle $Q$. 
+\end{lemma}
+
+\begin{idea}
+  The integral over this rectangle is equal to zero, since it is closed. Conversely, we can find an antiderivative like in the proof of the theorem.
+\end{idea}
+
+\begin{theorem}[Cauchy, Morera]
+  Let $\gg$ be a closed continuous curve with $\im \gg \ss G$.
+  Then a function $f \col G \to \C$ is holomorphic iff
+  $$ \int_\gg f = 0. $$
+\end{theorem}
+
+\section{Connectivity}
+
+\begin{lemma}
+  Every two points of a domain $H \ss \R^n$ can be connected by a piecewise-linear path.  
+\end{lemma}
+
+\begin{proof}
+  Fix $x_0 \in H$ and put $A$ to be the set of all points reachable from $x_0$ by a piecewise-linear path over $H$. $A$ is open, since $H$ is: every point in $A$ is the centre of a ball in $H$, and balls are convex. The complement $H \sm A$ is open for the same reasons: take any point $x$ from there, there is a ball $B \ss H$ around it; if there was a point of $A$ in this $B$, we could connect it to $x$. Therefore, $A$ is open and closed; but it is not empty either, so $A = H$ by connectedness of the domain $H$.
+\end{proof}
+
+Recall the theorem on equivalence of linear connectivity and connectedness for locally linearly connected spaces. The proof is almost the same.
+
+\begin{theorem}
+  Every two points of a domain $H \ss \R^n$ can be connected by a $C^\infty$ path.   
+\end{theorem}
+
+We need to recall some stuff about convolutions for the proof.
+
+\begin{definition}
+  A family $\b{\phi_s}_{s > 0}$ of infinitely smooth functions $\R^n \to \R$ with compact support and such that
+  \begin{align*}
+    \int \phi_s &= 1, &
+    \phi_s(x) &= \frac{\phi_1\p{x/s}}{s^n}
+  \end{align*}
+  for all $s > 0$ and $x \in \R^n$ is called a
+  \emph{standard approximative unit} or a \emph{mollifier}.
+\end{definition}
+
+\begin{theorem}
+  ~\begin{enumerate}
+    \item A family $\b{\phi_\square}$ exists.
+    \item Let $f \col \R^n \to \R$ be a continuous function.
+  Then the functions $\phi_s * f$ converge to $f$ uniformly with $s \to 0$ and are infinitely smooth.
+  \end{enumerate}
+\end{theorem}
+
+The \emph{proof} was given in the third semester.
+Now we start with the main theorem.
+
+\begin{proof}
+  Let $\gg \col [a, b] \to H$ be a continuous path $A \leadsto B$. Continue $\gg$ to a continuous path $\R \to H$ by setting
+  $$
+  \gg(t) =
+  \begin{cases}
+    \gg(a), & t < a, \\
+    \gg(b), & t > b, \\
+    \gg(t), & t \in [a, b].
+  \end{cases}
+  $$
+  Let $\phi_\square$ be a standard approximative unit for functions on $\R$, and put for all $s > 0$
+  $$ \wh \gg_s(x) = \p{\phi_s*\gg}(x), $$
+  where $*$ denotes component-wise convolution.
+  Fix $\eps > 0$, $a_2 < a$, and $b_2 > b$.
+  By the theorem on approximating with units, if $s$ is small enough, we have $\a{\wh \gg_s(t) - \gg(t)} < \eps$  for all $t \in [a_2, b_2]$.
+  This $\eps$ can be chosen in such a way that the path $\wh \gg_s$ does not leave the domain $H$.
+  Further, choose $a_2, b_2$ such that
+  \begin{align*}
+    \wh \gg_s\p{a_2} &= \gg(a), &
+    \wh \gg_s\p{b_2} &= \gg(b).
+  \end{align*}
+  \wtf
+  This ensures  $\wh \gg|_{\q{a_2, b_2}}$ is indeed the path we need.
+\end{proof}
+
+\section{Closed forms and balanced regions}
+
+\begin{theorem}[reformulations of `closed']
+  Let $\Phi$ be a differential form in $H \ss \R^n$ with continuous coefficients $f_j$. The following are equivalent:
+  \begin{enumerate}
+    \item $\Phi$ is closed.
+    \item Every $x \in H$ has a $\Phi$-balanced neighbourhood $U \ss H$.
+  \end{enumerate}
+  In case $n = 2$, two more reformulations are true:
+  \begin{enumerate}
+    \setcounter{enumi}{2}
+    \item For every $x \in H$, there exists a rectangle-astroid region $B \ni x$ such that $\int_Q \Phi = 0$ for any central rectangle $Q$.
+    \item $\int_Q \Phi = 0$ for any rectangle $Q$ such that $\Cl Q \ss H$. 
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of $3 \Rightarrow 4$.]
+  Split the rectangle $Q$ into equal four, $\b{Q_i}$.
+  Then the integral over $Q$ is equal to the sum of integrals over $\b{Q_i}$.
+  Cover the compact $\Cl Q$ with `good' rectangle-astroid regions which lie in $H$ completely (they exist by hypothesis).
+  Let $\gd > 0$ be the Lebesgue number of this cover.
+  Continue to split the rectangles into four until each of them is less than $\gd$ in diameter.
+  Now it is clear that the integral over $Q$ is zero itself.
+\end{proof}
+
+\begin{proof}[Proof of $4 \Rightarrow 3$]
+  $G$ is open.
+\end{proof}
+
+\section{Change of basis}
+
+Let $z = x+iy$. Then
+\begin{align*}
+  \d z &= \d x + i \d y &
+  \d \ol z &= \d x + i \d y,
+\end{align*}
+so
+\begin{align*}
+  \d x &= \frac{\d z + \d \ol z}{2}, &
+  \d y &= \frac{\d z - \d \ol z}{2}.
+\end{align*}
+Now let $\phi = u \d{x} +v\d{y}$ be a 1-form, defined in $H \ss \R^2$. Then, if $\phi = \d{\Phi}$ for a function $\Phi \col H \to \C$, we have
+\begin{align*}
+  \Phi &= \frac{\pd_1 \Phi - \pd_2 \Phi}{2} \d z
+  + \frac{\pd_1 \Phi - \pd_2 \Phi}{2} \d \ol z
+\end{align*}
+by direct computation.
+By analogy, we define
+\begin{definition}
+  \begin{align*}
+  \pd_z \Phi &:= \frac{\pd_1 \Phi - i \pd_2 \Phi}{2} &
+  \pd_{\ol z} \Phi &:= \frac{\pd_1 \Phi + i \pd_2 \Phi}{2}.
+\end{align*}
+\end{definition}
+Let $\Phi = p + iq$.
+It then can be derived that
+\begin{align*}
+  \pd_{\ol z} \Phi
+  &= \frac{\pd_1 p - \pd_2 q}{2}
+  + i \frac{\pd_1 q + \pd_2 p}{2}.
+\end{align*}
+Therefore,
+\begin{align*}
+  \pd_{\ol z} \Phi = 0 
+  \iff
+  \begin{cases}
+    \pd_1 p = \pd_2 q, \\
+    \pd_1 q = -\pd_2 p.
+  \end{cases}
+\end{align*}
+These are the Cauchy-Riemann equations.
+Therefore,
+\begin{lemma}
+  A function $\Phi \col G \to \C$ is holomorphic iff $\d{\Phi} = \pd_{z} \Phi \d{z}$.
+\end{lemma}
+
+We can also prove the following:
+\begin{lemma}
+  Let $\ga \d z$ be a form in $G$.
+  It is exact iff there exists a holomorphic function $A \col G \to \C$ such that $A' = \ga$.
+\end{lemma}
+
+\begin{proof}[Proof of $\Rightarrow$.]
+  Let $A$ be the antiderivative.
+  $\ga \d{z} = \ga\d{x}+i\ga\d{y}$.
+  Then $\pd_1 A = \ga$, $\pd_2 A = i\ga$,
+  so
+  \begin{align*}
+    A' = \pd_z A &= \frac{\pd_1 A - i\pd_2 A}{2} = \ga, &
+    \pd_{\ol z} A &= \frac{\pd_1 A + i\pd_2 A}{2} = 0.
+  \end{align*}
+\end{proof}
+
+\begin{lemma}[a variation of the principal estimate]
+  Let $\ga \col G \to \C$ be a function, $\gg \col [a, b] \to G$ a $C^1$ path.
+  Then
+  $$ \a{\int_\gg \ga \d{z}} \le l(\gg) \cdot \sup_{z \in \im \gg} \a{\ga(z)}. $$
+\end{lemma}
+
+\begin{idea}
+  Use the principal estimate and the identity $\gg' = \gg'_1 + i \gg'_2$.
+\end{idea}
+
+\section{Cauchy's theorem on closedness}
+
+\begin{theorem}[Cauchy, on closedness]
+  If $f \col G \to \C$ is holomorphic, then the form $f \d{z}$ is closed.
+\end{theorem}
+
+That is, locally, it has antiderivatives. The proof spans the several following pages and requires a few lemmas.
+
+\subsection{The case of continuous derivative}
+
+\begin{lemma}
+  Suppose $f'$ is continuous. Then the form $f \d{z}$ is closed.
+\end{lemma}
+
+{While this might seem to give a hint of our further course of action, we won't be so blunt as to prove the continuity of $f'$ directly. Instead }
+
+\begin{idea}
+  Indeed, as we know, the closedness is then equivalent to the equality
+  $$ \frac{\pd f}{\pd y} = i\frac{\pd f}{\pd x}. $$
+  This is straightforward to show using Cauchy-Riemann equations.
+\end{idea}
+
+\begin{example}
+  \label{closed and not exact}
+  The form ${\d z}/{z}$ is closed and not exact.
+  $f' = -1/z^2$ in this case is a continuous function. By the previous lemma, $f$ is closed (in fact, its antiderivatives are logarithms). Now consider the unit circle $\S^1$. By parametrising with $e^{i\square}$, we can easily check that 
+  $$ \int_{\S^1} \frac{\d z}{z} = 2 \pi i. $$
+  But this means we have found a non-balanced region of $\C$, so $\d z / z$ is not exact.
+\end{example}
+
+\subsection{Indices}
+
+\begin{lemma}
+  Let $C = z_0 + r\S^1$ for some $r > 0$. Then
+  \begin{align}
+      \int_C \frac{\d z}{z - z_1} =
+      \begin{cases}
+        0, & \a{z_1-z_0} > r, \\
+        2 \pi i, & \a{z_1-z_0} < r.
+      \end{cases}
+  \end{align}
+\end{lemma}
+
+\begin{proof}
+  Consider the case $\a{z_1-z_0}>r$. Luckily, the form $\frac{\d z}{z - z_1}$ is closed in $H = \C \sm \b{z_1}$. This $H$ contains a rectangle around the square $C$. Every closed form is exact within this rectangle by a theorem from semester 3.
+  
+  Suppose, for now, $\a{z_1-z_0}<r$.
+  We reduce this to the case $z_0 = z_1$, which has been considered in the example on page \pageref{closed and not exact}.
+  Then
+  \begin{align*}
+    \int_C \frac{\d z}{z - z_1}
+    &= \int_C \frac{\d z}{\p{z-z_0}-\p{z_1-z_0}} \\
+    &= \int_C \frac{\d z}{z - z_0} \cdot \frac{1}{1 - \frac{z_1-z_0}{z-z_0}} \\
+    &= \int_C \frac{\d z}{z-z_0} \cdot \sum_{k\in \N} \p{\frac{z_1-z_0}{z-z_0}}^k \\
+    &= 2 \pi i + \sum_{k\in \N \sm 0} \int_C \frac{\d z}{z-z_0} \p{\frac{z_1-z_0}{z-z_0}}^k \\
+    &= 2 \pi i.
+  \end{align*}
+\end{proof}
+
+\subsection{The conclusion}
+
+\begin{theorem}[Cauchy, on closedness]
+  \label{Cauchy, on closedness}
+  If $f \col G \to \C$ is holomorphic, then the form $f \d{z}$ is closed.
+\end{theorem}
+
+\begin{proof}
+  Suppose otherwise: there exists a 2-dimensional rectangle $P \ss G$ with $I := \int_{\pd P} f \ne 0.$
+  Subdivide it into four $\b{Q_i}$ such that
+  $$ I = \sum_i \int_{\pd Q_i} f. $$
+  For one of them, $Q_j$, the modulus of the integral is at least one fourth the $\a{I}$. Denote $P_1 = Q_j$. Continuing this sequence, we get diminishing $\b{P_j}$ with a single point $z_0$ in their intersection. The function $f$ is holomorphic at $z_0$, so we may write
+  $$ f(z) = f(z_0)+f'(z_0)(z-z_0)+\phi(z), $$
+  where $\phi(z) = o\p{z-z_0}$ with $z \to z_0$.
+  Select $k$ such that $\a{\phi(z)} < \eps \a{z-z_0}$ for all $z \in P_k$.
+  Then we have
+  \begin{align*}
+    \a{\frac{I}{4^k}}
+    &\le\a{\ \int_{\pd P_k} f} \\
+    &= \a{\ \int_{z \in \pd P_k} \p*[\big]{\ub{f(z_0)+f'(z_0)(z-z_0)}_{\text{these guys are exact in $P_k$}}\mathrel{+}\phi(z)}} \\
+    &= \a{\ \int_{z \in \pd P_k} \phi(z)} \\
+    &\le \eps \cdot \p{\Diam P_k} \cdot {S_1\p{\pd P_k}} \\
+    &= \eps \cdot \frac{\p{\Diam P} \cdot S_1\p{\pd P}}{4^k}.
+  \end{align*}
+  But we thought that $I \ne 0$.
+\end{proof}
+
+\section{On correctible singularities}
+
+\begin{lemma}[on correctible singularities]
+  \label{correctible singularities}
+  Let $a \in G$.
+  Suppose the form $\go = f \d x + g \d y$ is closed in $G \sm \b{a}$, and the coefficients $f$ and $g$ are continuous in $G$. Then $\go$ is closed in $G$.
+\end{lemma}
+
+\begin{idea}
+  Approximate integrals with smaller rectangles.
+\end{idea}
+
+\section{The minor integral formula of Cauchy}
+
+\begin{theorem}[Cauchy, minor integral formula]
+  \label{Cauchy, minor integral formula}
+  Let $f \col G \to \C$ be holomorphic,
+  $z_0, z_1 \in G$,
+  $C = z_0 + r\S^1$,
+  $\a{z_1 - z_0} < r$.
+  Then
+  $$ f(z_1) = \frac{1}{2 \pi i} \int_C \frac{f(z)}{z-z_1} \dd z. $$
+\end{theorem}
+
+`Probably the most important formula in complex analysis.' --- S.K.
+
+The `greater' integral formula gives the same result for $C$ not necessarily a circle.
+
+\begin{proof}
+  Fix $z_0 \in G$.
+  Consider
+  $$
+  h(z)
+  =
+  \begin{cases}
+    \frac{f(z)-f(z_1)}{z-z_1}, & z \ne z_1 \\
+    f'(z_1), & z = z_1.
+  \end{cases}
+  $$
+  $h$ is continuous in $G$ and holomorphic in $G \sm \b{z_0}$.
+  By Cauchy's theorem on closedness (page \pageref{Cauchy, on closedness}), the form $h \d z$ is closed in $G \sm \b{z_1}$.
+  By the lemma on correctible singularities (page \pageref{correctible singularities}), it is also closed in all of $G$. Let $\wh C$ be a ball of slightly greater radius $r + \gd$, but still lying in $G$. Every closed form in $\wh C$ is exact, so
+  $$ \int_C h \d z= 0. $$
+  Rewriting this yields
+  \begin{align*}
+    f(z_1) \ub{\int_C \frac{\d z}{z-z_1}}_{=2\pi} = \int_C \frac{f(z)}{z - z_1} \d z.
+  \end{align*}
+\end{proof}
+
+\section{Cauchy's theorem on analyticity}
+
+\begin{theorem}[Cauchy, on analyticity]
+  Let $f$ be holomorphic in $G$, $z_0 \in G$, $R = \dist\p{z_0, \pd G}$. 
+  For all $k \in \N$, define
+  $$ c_k = \frac{1}{2\pi i} \int_C \frac{f(z)}{\p{z-z_0}^{k+1}} \d z. $$
+  Then
+  $$ f(z) = \sum_{k \in \N} c_k \p{z-z_0}^k $$
+  for all $z$ such that $\a{z-z_0} < R$.
+  In particular, $f$ is analytic in $G$.
+\end{theorem}
+
+\begin{proof}
+  Let $C$ be a circle around $z_0$ of radius $r < R$.
+  By Cauchy's minor integral formula from page \pageref{Cauchy, minor integral formula}, for any $z$ inside of $C$ we have
+  \begin{align*}
+    f(z_1)
+    &= \frac{1}{2\pi i} \int_C \frac{f(z)}{z-z_1} \d z \\
+    &= \frac{1}{2\pi i} \int_C \frac{f(z)}{\p{z-z_0}-\p{z_1-z_0}} \d z \\
+    &= \frac{1}{2\pi i} \int_C \frac{1}{z-z_0} \cdot \frac{f(z)}{1-\frac{z_1-z_0}{z-z_0}} \d z \\
+    &= \sum_{k\in \N} \frac{1}{2\pi i} \int_C \frac{f(z)}{z-z_0} \cdot \p{\frac{z_1-z_0}{z-z_0}}^k \d z \\
+    &= \sum_{k\in \N} \p{z_1-z_0}^k \cdot \p{ \frac{1}{2\pi i} \int_C \frac{f(z)}{\p{z-z_0}^{k+1}} \d z },
+  \end{align*}
+  which is desired.
+  Transposing the sum with the integral is legit, since the series for geometric progression converges uniformly for all $z$.
+\end{proof}
+
+\begin{remark}
+  In the analyticity theorem,
+  $$ c_k = \frac{f^{(k)}(z_0)}{k!}. $$
+\end{remark}
+
+\subsection{Morera's theorem}
+
+\begin{corollary}[Morera's theorem]
+  Let $f \col G \to \C$ be a continuous function.
+  The following conditions are equivalent:
+  \begin{enumerate}
+    \item $f$ is analytic.
+    \item $f$ is holomorphic.
+    \item $f \d z$ is closed. 
+  \end{enumerate}
+\end{corollary}
+
+%This, in particular, gives an alternative proof of the analyticity theorem.
+
+\begin{proof}
+  $1 \Rightarrow 2$ follows by differentiating the series, $2 \Rightarrow 3$ is the Cauchy's theorem on closedness from page \pageref{Cauchy, on closedness}. We now give a proof of $3 \Rightarrow 1$. By definition, the form $f \d z$ locally has an antiderivative $\Phi$. Then $\Phi$ is holomorphic, and $\Phi' = f$. By the analyticity theorem, $\Phi$ is holomorphic, which implies that $f$ is, too (simply differentiate the series). 
+\end{proof}
+
+\section{The mean value theorem}
+
+\begin{lemma}[mean value theorem]
+  If $C \ss G$ is a circle with the centre at $z_0 \in G$, then
+  $$ f(z) = \frac{1}{2 \pi} \int_{C} f(z) \d z. $$
+\end{lemma}
+
+\begin{idea}
+  Follows from the Cauchy's minor integral formula (page \pageref{Cauchy, minor integral formula}).
+\end{idea}
