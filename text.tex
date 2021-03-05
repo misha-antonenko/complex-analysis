@@ -629,9 +629,9 @@ The `greater' integral formula gives the same result for $C$ not necessarily a c
   Follows from the Cauchy's minor integral formula (page \pageref{Cauchy, minor integral formula}).
 \end{idea}
 
-\section{Maximal modulus principle}
+\section{Maximum modulus principle}
 
-\begin{theorem}[maximal modulus principle]
+\begin{theorem}[maximum modulus principle]
   Let $f \col G \to \C$ be holomorphic. Then $\a{f}$ has no strict maximum in $G$.
 \end{theorem}
 
@@ -716,6 +716,7 @@ A powerful theorem.
   so there exists a function $v$ such that $\frac{\pd v}{\pd y} = \phi$ and $\frac{\pd v}{\pd x} = \psi$. This $v$ is harmonically conjugate to $u$, since the Cauchy-Riemann equations are satisfied.
 \end{proof}
 
+
 \section{Integrals of closed forms}
 
 \begin{lemma}
@@ -746,3 +747,129 @@ A powerful theorem.
 \begin{proof}[Proof of existence]
   Split $[a, b]$ into small subintervals (small enough for the form $\phi$ to have an antiderivative on the $\gg$-image of each). Choose constants in their intersections in such a way that they make an actual function (antiderivatives differ by a constant).
 \end{proof}
+
+\begin{remark}
+  This can be used as an alternative definition of the integral along a path:
+  $$ \int_\gg \phi := F(b) - F(a). $$
+\end{remark}
+
+
+\section{Homotopies}
+
+\begin{definition}
+  A \emph{homotopy} is a continuous map $h \col [\ga, \gb] \times [a, b] \to G$ (usually $\ga = 0$, $\gb = 1$).
+\end{definition}
+
+\begin{definition}
+  A \emph{loop} is a closed path; i.e. a $\gg \col [a, b] \to \C$ that can be continued to an $(b-a)$-periodic one. A loop is \emph{contractible}, iff it is homotopic to a constant path.
+  $G$ is \emph{simply-connected}, iff every loop in $G$ is contractible.
+\end{definition}
+
+\begin{example}
+  All astroid domains are simply-connected.  
+\end{example}
+
+\begin{definition}
+  Let $\phi$ be a 1-form in $G$, $S = [0, 1] \times [a, b]$, $h \col S \go G$ a homotopy.
+  A continuous $F \col S \to G$ is an \emph{antiderivative of $\phi$ along $h$}, iff for every $(t, s) \in S$ there exists a ball $B \ss G$ with the centre at $h_t(s)$ and an antiderivative $U$ for $\phi$ in $B$.
+\end{definition}
+
+\begin{theorem}
+  Such $F$ always exists in case of a closed $\phi$.
+\end{theorem}
+
+\begin{proof}
+  $h(S)$ is compact. By closedness of  $\phi$, take balls such that there exists an antiderivative.
+  By continuity of $h$ and Lebesgue's lemma, there exists $\gd > 0$ such that $h(e)$ lies completely in one of these balls for every $e$ of diameter less than $\gd$.
+  Extract a finite subcover, and make them agree on intersections.
+\end{proof}
+
+\begin{theorem}
+  Let $\gg_t$ be a homotopy in $G$, and all paths $\gg_t$ are closed.
+  Let $\phi$ be a closed 1-form in $G$, then
+  $$ \int_{\gg_0} \phi = \int_{\gg_1} \phi. $$  
+\end{theorem}
+
+\begin{proof}
+  Define $g(t) = \int_{\gg_t} \phi.$ We assert this function is locally constant.
+  Fix $t \in [a, b]$. Then
+  $$ \int_{\gg_{t}} \phi = F\p{\gg_{t}(b)}-F\p{\gg_t(a)} \equiv \const $$
+  for some antiderivative $F$ along $\gg_t.$ 
+\end{proof}
+
+\begin{corollary}
+  In a simply-connected set, every closed form is exact.
+\end{corollary}
+
+\begin{proof}
+  Because the integral over any closed path equals that over a constant one.
+\end{proof}
+
+
+\section{Laurent series}
+
+\begin{definition}
+  A \emph{Laurent series} is one of the form
+  $$ \sum_{k \in \Z} c_k \p{z-z_0}^k $$
+  for some $z, z_0, c_k \in \C$.
+  It is said to \emph{converge} at $z$, iff both
+  \begin{align*}
+    \sum_{k \ge 0} &c_k \p{z-z_0}^k, &
+    \sum_{k < 0} &c_k \p{z-z_0}^k
+  \end{align*}
+  converge at $z$. The first of these is the \emph{regular} part; the other one --- \emph{principal.}
+\end{definition}
+
+\begin{theorem}
+  Let
+  $$ A = \b{ z \in \C \mid r < \a{z-z_0}<R } $$
+  (\emph{anneau})
+  for some $0< r< R$. 
+  If $f \col A \to \C$ is holomorphic, then $f$ decomposes uniquely into a Laurent series at any $z_0 \in A$.
+\end{theorem}
+
+\begin{idea}
+  Consider integrals over the inner $c$ and outer $C$ components of the boundary of the ring $A$.
+  For every $z \in Z$,
+  $$ \int_c \frac{f(w)-f(z)}{w-z} \d w = \int_C \frac{f(w)-f(z)}{w-z} \d w. $$
+  From this we get an expression for $2\pi i f(z)$ as a sum of integrals of two geometric series.
+\end{idea}
+
+\section{Singularities}
+
+\begin{definition}
+  Let $f \col G \sm \b{a} \to \C$ be holomorphic, $a \in G$.
+  \begin{itemize}
+    \item $a$ is \emph{removable}, iff $f$ is bounded in a neighbourhood of $a$.
+    \item $a$ is a \emph{pole}, iff $f(z) \to \infty$ when $z \to a$.
+    \item $a$ is \emph{essential}, iff it is not removable or a pole; i.e. $f$ has no limit at $a$.
+  \end{itemize}
+\end{definition}
+
+\begin{lemma}
+  Let $a$ be a correctible singularity of $f \col G \sm \b{a} \to \C$.
+  Then $f$ can be continued to an analytic function $f \col G \to \C$.
+\end{lemma}
+
+\begin{proof}
+  We assert every coefficient of the principal part is zero.
+  Indeed,
+  \begin{align*}
+    c_k
+    &= \frac{1}{2\pi i} \int_{a+rS^1} f(\gz) \p{\gz-a}^{-j-1} \d \gz, \\
+    \\
+    \a{c_k}
+    &\le \frac{A \a{r}^z{-j-1} 2 \pi r}{2\pi} \\
+    &\xrightarrow[r\to 0]{} 0. 
+  \end{align*}
+\end{proof}
+
+\begin{lemma}
+  $a$ is a pole iff
+  the number of nonzero coefficients $c_k$ at $a$ with $k < 0$ is nonzero and finite.
+  $a$ is essential, iff it is infinite.
+\end{lemma}
+
+\begin{idea}
+  If $f \to \infty$, then $a$ is c removable for $1/f$.
+\end{idea}
