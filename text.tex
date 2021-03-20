@@ -621,8 +621,9 @@ The `greater' integral formula gives the same result for $C$ not necessarily a c
 \section{The mean value theorem}
 
 \begin{lemma}[mean value theorem]
-  If $C \ss G$ is a circle with the centre at $z_0 \in G$, then
-  $$ f(z) = \frac{1}{2 \pi} \int_{C} f(z) \d z. $$
+  If $f \in \Hol G$ and $z \in G$, then
+  $$ f(z) = \frac{1}{2 \pi} \int_{t=0}^{2\pi} f\p{z+re^{it}} $$
+  for all $0 < r < \dist\p{z, \pd G}$.
 \end{lemma}
 
 \begin{idea}
@@ -873,3 +874,692 @@ A powerful theorem.
 \begin{idea}
   If $f \to \infty$, then $a$ is c removable for $1/f$.
 \end{idea}
+
+\section{Sokhotsky's theorem}
+
+\begin{theorem}[Sokhotsky]
+  Let $f \in \Hol G$, and $a$ an essential singularity of $f$.
+  Then, for every $\eps > 0$, the set $f\p{B_\eps(a)}$ is dense in $\C$.
+\end{theorem}
+
+\begin{proof}
+  Suppose otherwise: let $b \in \C$ be such that
+  $$ \a{f(z)-b} \ge \gd $$
+  for all $z \in B := B_\eps(a)$ for some $\eps > 0$.
+  The function
+  $$ h(z) := \frac{1}{f(z)-b} $$
+  is analytic at $a$ and bounded.
+  Then $h$ has a removable singularity at $a$, which allows us to think it is defined in the whole of $B$.
+  Hence
+  $$ f(z) = \frac{1}{h(z)}+b $$
+  has a finite number of negative powers in the Laurent decomposition, which is false.
+\end{proof}
+
+\section{Orders of zeroes}
+
+\begin{definition}
+  Let $a \in G$.
+  Every holomorphic $f \col G \sm \b{a} \to \C$ can be presented as
+  $$ f(z) = (z-a)^k g(z), $$
+  where $k \in \Z$, $g \in \Hol G$, $g(a) \ne 0$. This $k$ is called the \emph{order} of $a$ in $f$, and denoted
+  $$ \ord_a f := k. $$
+\end{definition}
+
+\begin{lemma}
+  The following are equivalent:
+  \begin{enumerate}
+    \item $\ord_a f = k$.
+    \item $f(a) = f'(a) = \dots = f^{(k-1)}(a) = 0$, $f^{(k)}(a) \ne 0$.
+  \end{enumerate}  
+\end{lemma}
+
+\begin{proof}
+  Since $c_k = \frac{f^{(k)}(z_0)}{k!}.$
+\end{proof}
+
+\section{Residues}
+
+\begin{definition}
+  Let $a \in G$ be an isolated singularity of $f$,
+  $$ f(z) = \sum_{j \in \Z} c_j (z-a)^j $$
+  in a ball of radius $r > 0$ around $a$.
+  The \emph{residue} of $f$ at $a$ is the number
+  $$ \Res_a f := c_{-1} = \frac{1}{2\pi i} \int_{a+rS^1} f(z) \d z. $$
+\end{definition}
+
+\begin{lemma}
+  If $-m = \ord_a f$ and $m > 0$, then
+  $$ \Res_a f = \frac{1}{(m-1)!} \lim_{z \to a} \p{ \p{z-a}^m f(z) }^{(m-1)} $$
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{lemma}
+  If $f = g/h$ and $\ord_a h = 1$, then
+  $$ \Res_a f = \frac{g(a)}{h'(a)}. $$
+\end{lemma}
+
+\begin{proof}
+  Follows from the previous one.
+\end{proof}
+
+\section{Indices}
+
+\newcommand{\Ind}[0]{\on*{Ind}}
+
+\begin{definition}
+  Let $\gg \col [0, 1] \to \C$ be a closed path.
+  If $a \not\in \im \gg$, then the \emph{index} of $\gg$ relative to $a$ is the number
+  $$ \Ind_a \gg := \frac{1}{2\pi i} \int_\gg \frac{\d z}{z - a}. $$
+\end{definition}
+
+Full-blown representation theory.
+
+\begin{lemma}
+  ~\begin{enumerate}
+    \item Index does not change upon homotopies that do not contain $a$ in their image.
+    \item Index is an integer.
+    \item Index is constant on every connected component of $\C \sm \im \gg$.
+  \end{enumerate}
+\end{lemma}
+
+\section{The residue theorem}
+
+\begin{definition}
+  Let $\Gamma := \b{\gg_1, \dots, \gg_n}$ be closed paths in $G \ss \C$.
+  $\gg_\s$ is a \emph{proper path system}, iff for every $f \in \Hol G$ we have
+  $$ \int_\Gamma f(z) \d z := \p{\,\int_{\gg_1} + \dots + \int_{\gg_n}\,}\, f(z) \d z = 0. $$
+\end{definition}
+
+\begin{theorem}[on residues]
+  Let $\Gamma = \b{\gg_1, \dots, \gg_n}$ be a proper path system in $G$,
+  $$ f \in \Hol G \sm \b{z_1, \dots, z_k}, $$
+  where $z_j \not\in \gg$ for every $j$ and some path $\gg \col [0, 1] \to G$. Then
+  $$ \frac{1}{2 \pi i} \int_\Gamma f(z) \d z = \sum_{z \in G} \Res_{z}(f) \Ind_{z}(\Gamma ). $$
+\end{theorem}
+
+\begin{proof}
+  Let $g_1, \dots, g_k$ be principal parts of Laurent series of $f$ around $\b{z_j}$.
+  Then
+  $$ g_j(z) = \sum_{s=1}^\infty \frac{c_s}{(z-z_j)^s} $$
+   If $s > 1$,
+   $$ g_s(z) = \frac{c_{-1}}{z-z_j} + h_s(z), $$
+   where $h_s$ has an antiderivative in $G$.
+   Integrating this, we get exactly
+   $$ \int_{\gg_j} f(z) \d z = \int_{\gg_j} \ub{\p{f(z)-g_j(z)}}_{\text{has no singularity in $z_j$}} \d z + \Res_{z_j}(f) \cdot 2 \pi i \Ind_{z_j}(\gg_j). $$
+   Summing this over $j$ and using properness of $\Gamma$, we get the desired.
+\end{proof}
+
+\begin{remark}
+  This theorem still holds true, if $f$ has an infinite number of singularities $\b{z_j}$, but with discrete induced topology.  
+\end{remark}
+
+\section{Change of variables for non-smooth paths}
+
+\begin{lemma}
+  Let $F$ be an antiderivative of $f \d z$ along $\gg$.
+  Then $F \circ h$ is antiderivative of the same form along $\gg \circ h$.
+\end{lemma}
+
+\begin{proof}
+  Exercise.
+\end{proof}
+
+\begin{lemma}
+  Let $G_1, G_2 \ss \C$ be domains, $g \col G_1 \to G_2$ a holomorphic function.
+  Let $f \in \Hol G_2$,  and let $\gg$ be a path in $G_1$.
+  Then
+  $$ \int_{g \circ \gg} f(z) \d z = \int_\gg f \p{g(z)}   \cdot g'(z) \d z. $$
+\end{lemma}
+
+\begin{proof}
+  If $\gg$ is piecewise smooth, this follows from the change of variables formula. Otherwise, let $F$ be an antiderivative of $f \d z$ along $g \circ \gg$. Differentiating any local antiderivative, we see that it is also an antiderivative of $\p{f \circ g} \cdot g'$ along $\gg$.
+\end{proof}
+
+\begin{lemma}
+  Index $\Ind_{z_0}(\gg)$ of a continuous $\gg$ is locally constant with respect to $z_0$.
+\end{lemma}
+
+\begin{proof}
+  From the previous lemma. 
+\end{proof}
+
+\begin{lemma}
+  If $z_0$ is in an unbounded component of $\C \sm \im \gg$, then $\Ind_{z_0}(\gg) = 0.$
+\end{lemma}
+
+\begin{proof}
+  $$ \Ind_{z_0} \gg = \frac{1}{2\pi i} \int_{\gg -z} \frac{\d w}{w}. $$
+  With $\a{z_0} \to \infty$, $\im \p{\gg-z_0}$ is within a half-plane. 
+\end{proof}
+
+\section{Logarithms}
+
+\begin{definition}
+  A continuous $\phi \col G \to \C$ is a \emph{branch of a logarithm} in $G$, iff $e^{\phi(z)} = z$ for all $z \in G$.
+\end{definition}
+
+\begin{lemma}
+  Let $\phi \col G \to \C$ be a logarithm branch.
+  \begin{enumerate}
+    \item $0 \not\in G$.
+    \item $\phi'(z) = 1/z$. In particular, $\phi$ is holomorphic.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  ~\begin{enumerate}
+    \item Obvious.
+    \item From the inverse function theorem.
+  \end{enumerate}
+\end{proof}
+
+\begin{definition}
+  A continuous $\phi \col G \to \C$ is a \emph{branch of a logarithm of $F \col G \to \C$} in $G$, iff $e^{\phi(z)} = F(z)$ for all $z \in G$.
+\end{definition}
+
+\begin{theorem}
+  If $G$ is simply-connected, and $F \in \Hol G$, $F \ne 0$, then there exists a branch of the logarithm of $F$ in $G$.  
+\end{theorem}
+
+\begin{proof}
+  There exists an antiderivative $H$ for $F'/F$.
+  Differentiating $\p{e^H/F}'$, we get $e^H = c F$ for some $c \in \C$. Then $F = e^{H - \Arg c}$.
+\end{proof}
+
+\begin{definition}
+  We know that
+  $$ F(z) = e^{\Phi(z)}. $$
+  There is $\phi$ such that
+  $$ \Phi(z) = \log \a{F(z)} + i \phi(z), $$
+  where $\phi$ is some continuous $G \to \C$. 
+  This $\phi$ is called a \emph{branch of the argument of $F$}.
+\end{definition}
+
+\begin{definition}
+  A continuous $u \col [0, 1] \to \C$ is a \emph{branch of a logarithm} along $\gg [0, 1] \to \C$, iff $u \circ \gg (t)$ is a logarithm of $F\circ \gg (t).$ Likewise for \emph{argument}. 
+\end{definition}
+
+\begin{theorem}
+  In the conditions of the definition, there exists a logarithm branch of $F$, and any two such differ by $2 \pi i k$ for some $k \in \Z$. 
+\end{theorem}
+
+\begin{proof}
+  Uniqueness: $u_1 - u_2$ is a continuous function $[0, 1] \to 2 \pi i \Z$.
+  Existence follows from local existence.
+\end{proof}
+
+\begin{lemma}
+  There exists a continuous argument branch.
+\end{lemma}
+
+\begin{proof}
+  We can find one knowing a continuous logarithm branch.
+\end{proof}
+
+\begin{lemma}
+  Index is an integer.
+\end{lemma}
+
+\begin{proof}
+  Choose a continuous logarithm branch and use uniqueness locally.
+\end{proof}
+
+\section{Jordan's curve theorem}
+
+\begin{theorem}
+  Let $\gg \col [0, 1] \to \C$ be a simple closed path. Then $\C \sm \im \gg$ consists of two connected components.
+\end{theorem}
+
+\begin{proof}
+  
+\end{proof}
+
+\section{The argument principle}
+
+\begin{definition}
+  Let $\gg$ be a simple closed path in $G$ such that $\C \sm \im \gg$ splits into two connected components. The bounded of these two is called \emph{Jordan}.
+\end{definition}
+
+\begin{theorem}
+  Let $f$ be holomorphic in a neighbourhood of a $\gg$-Jordan $\Cl G$, except a finite number of poles which are not in $\im \gg$. Then
+  $$  \diff{\frac{1}{2 \pi} \Arg \circ f \circ \gg}_0^1 = \sum_{z \in G} \ord_{z}(f). $$
+\end{theorem}
+
+\begin{proof}
+  On the left we have
+  \begin{align*}
+    \Delta
+    &= \frac{1}{2 \pi i} \int_\gg \frac{f'(z)}{f(z)} \d z \\
+    &= \sum_{z \in G} \Res_z\p{\frac{f'}{f}} \Ind_z(\gg) \\
+    &= \sum_{z \in G} \Res_z\p{\frac{f'}{f}} \\
+    &= \sum_{z \in G} \ord_z\p{\frac{f'}{f}}.
+  \end{align*}
+  The last equality is easy to check directly.
+\end{proof}
+
+\section{The theorem of Rouché}
+
+\begin{theorem}[Rouché]
+  Let $G$ be a $\gg$-Jordan domain. 
+  Let $f, g$ be holomorphic in a neighbourhood of $\Cl G$.
+  Suppose that
+  $$ \fa z \in \im \gg \col \a{f(z)} > \a{g(z)}. $$
+  Then $f$ and $f+g$ have the same number of zeroes in $G$.
+\end{theorem}
+
+\begin{idea}
+  Use the previous theorem to compute the difference  in sums of multiplicities as an integral of some $f'/f$. The condition on modules is needed to divide through $f$, and compute $\Ind_0 \phi \circ \gg$, where $\phi(z) = 1+g(z)/f(z)$.
+\end{idea}
+
+\section{The Riemann sphere}
+
+\begin{definition}
+  $\wh \C := \C \sqcup \b{\infty}$.
+  A basis of nbhds of $\infty$ is formed by
+  $$ \b{ \b{z \mid \a{z} > R} \mid R \in \R}. $$
+\end{definition}
+
+\begin{definition}
+  Let $f$ be defined in a neighbourhood of $\infty$.
+  $f$ is \emph{holomorphic at $\infty$}, iff $f(1/z)$ is holomorphic in a neighbourhood of 0.
+\end{definition}
+
+\begin{definition}
+  Let $f$ be holomorphic at $\infty$.
+  Then
+  \begin{align*}
+    \Ind_\infty(\gg) &:= \Ind_0(1/\gg), \\
+    \Res_{\infty}(f) &:= -\Res_{z \to 0}\frac{f(1/z)}{z^2}.
+  \end{align*}
+\end{definition}
+
+The basis for this definition is the fact that
+$$ \Res_\infty(f) \Ind_\infty(\gg) = \int_{1/\gg} -\frac{f(1/z)}{z^2} \d z = \int_\gg f(z) \d z $$
+for any $\gg$ not through zero.
+
+\section{Another theorem on residues}
+
+\begin{theorem}
+  If $f \in \Hol \C \sm \b{z_1, \dots, z_k}$, then
+  $$ \sum_{z \in \C} \Res_z(f) = 0. $$  
+\end{theorem}
+
+\begin{proof}
+  Observe that, if $\gg$ is the circle around 0 of sufficiently large radius, $1/\gg$ is passed in the opposite direction. Then
+  \begin{align*}
+    \frac{1}{2 \pi i} \int_\gg f(z) \d z
+    &= \Res_\infty(f) \Ind_0 \frac{1}{\gg} \\
+    &= -\Res_\infty(f). 
+  \end{align*}
+\end{proof}
+
+\section{Univalent functions}
+
+\begin{definition}
+  A function is \emph{univalent}, iff it is holomorphic and injective.
+\end{definition}
+
+\begin{theorem}
+  Let $f \col G \to \C$ be univalent.
+  Then $f'$ is nowhere zero.  
+\end{theorem}
+
+\begin{remark}
+  The converse is not true even for holomorphic functions.  
+\end{remark}
+
+\begin{proof}
+  Suppose $f'(z_0) = 0$.
+  $$ f(z) = f(z_0) + (z-z_0)^k g(z), $$
+  where $k > 1$, $g(z_0) \ne 0$.
+  In a sufficiently small ball $B \ni z_0$, $g$ is nonzero and there is a logarithm $h \col B \to \C$ of $g$:
+  $$ g(z) = e^{h(z)}. $$
+  Then
+  $$ f(z) = f(z_0) + \p{(z-z_0) \wt g(z)}^k, $$
+  where
+  $$ \wt g(z) = e^{\frac{h(z)}{k}}. $$
+  The function $\phi(z) = (z-z_0) g(z)$ is univalent in a a neighbourhood of $z_0$ by a theorem from real analysis:
+  $$ \phi'(z) = g(z) + (z-z_0) g'(z_0) \ne 0 \text{ when $z = z_0$}. $$
+  This means that, if $z_1$ is sufficiently close to $f(z_0)$, $\phi$ is injective, and the equation
+  $$ \p{\phi(z)}^k = z_1-f(z_0) $$
+  has $k$ solutions in $z$.
+  This contradicts univalence of $f$:
+  $$ f(z) = \p{\phi(z)}^k. $$
+\end{proof}
+
+\begin{lemma}
+  If $f \col G \to \C$ is univalent, then $f$ is open.
+\end{lemma}
+
+\begin{proof}
+  Maps with non-degenerate differentials are open.
+\end{proof}
+
+\section{Conformal maps}
+
+\begin{definition}
+  We say a map $f \col G \to \C$ is \emph{conformal}, iff
+  $$ \Arg(\ol{z_1} z_2) = \Arg\p{\ol{f'(z_0)z_1} \cdot f'(z_0)z_2} $$
+  for all $z_0, z_1, z_2 \in G$.
+  That is, conformal maps preserve angles between tangent vectors.
+  In fact, this is (easy to see) equivalent to univalence.
+\end{definition}
+
+\begin{theorem}[Riemann]
+  The following conditions are equivalent:
+  ~\begin{enumerate}
+    \item $G$ is simply-connected and $\C \ne G$.
+    \item Exists an univalent map $G \to \Int \mathbb{D}$.
+  \end{enumerate} 
+\end{theorem}
+
+\begin{proof}[$\Leftarrow$]
+  From Liouville's theorem.
+\end{proof}
+
+\begin{proof}[$\Rightarrow$]
+  In April.
+\end{proof}
+
+\section{Automorphisms}
+
+\subsection{Automorphisms}
+
+\begin{definition}
+  Any univalent $f \col G \to G$ we'll call an \emph{automorphism} of $G$. 
+\end{definition}
+
+\begin{theorem}
+  \label{automorphisms of C}
+  Any automorphism of $\C$ is an affine map
+  $$ z \mapsto az + b. $$
+\end{theorem}
+
+The converse is trivially true.
+
+\begin{proof}
+  Let $f \in \Aut \C$.
+  If infinitely many coefficients in the Taylor expansion are nonzero, $\infty$ is an essential singularity for $f$. By Sokhotsky's theorem, for any ball $B \ni 0$ we have
+  $$ f(B) \cap f(\C \sm B) \ne \naught. $$
+  Hence $f$ is a polynomial. But $f'$ is nowhere zero by one of the previous theorems, which means $f$ is affine.
+\end{proof}
+
+\subsection{Automorphisms of $\wh \C$}
+
+\begin{definition}
+  A \emph{Möbius transform} is a function of form
+  $$ f\col z \mapsto \frac{az+b}{cz+d}, $$
+  where $ad \ne bc$.
+\end{definition}
+
+As we can see, $f(-d/c) = \infty$ and $f(\infty) = a/c$.
+
+\begin{lemma}
+  Möbius transforms form a group with respect to composition.
+\end{lemma}
+
+\begin{proof}
+  Routine check.
+\end{proof}
+
+\begin{lemma}
+  \label{transitive subgroup that contains a stabiliser is the whole G}
+  Let $G$ be acting on a set $X$.
+  Let $H \le G$ be acting transitively.
+  Suppose $H \sps \Stab_G(x)$ for some $x \in X$.
+  Then $H = G$.
+\end{lemma}
+
+\begin{proof}
+  Let $g \in G$. Since the action of $H$ is transitive, there exists $h \in H$ such that
+  $ hgx = x. $
+  Then $hg \in \Stab_G(x) \ss H$, and so $h^{-1} \cdot hg = g \in H$.
+\end{proof}
+
+\begin{theorem}
+  The group of Möbius transforms is not smaller than $\Aut \wh \C$.
+\end{theorem}
+
+\begin{proof}
+  Let $M$ be the group of Möbius transforms, and let $S \le \Aut \wh \C$ be the stabiliser of $\infty$.
+  It is easy to see that $M$ acts transitively.
+  $S \le M$, since every $s \in S$ also leaves in place the $\C$, and so must be an affine function (page \pageref{automorphisms of C}).
+\end{proof}
+
+\subsection{Disk automorphisms}
+
+Let $D := \Int \D^2$.
+
+\begin{definition}
+  Let $N$ be the set of maps of form
+  $$ f_{a,c} \col z \mapsto c \cdot \frac{z+a}{\ol a z+1}, $$
+  where $\a{a} < 1$ and $\a{c} = 1$.
+\end{definition}
+
+\begin{lemma}
+  $f_{a,c}(D) \ss D$.
+\end{lemma}
+
+\begin{proof}
+  Ultimately, it follows from the maximum modulus principle.
+\end{proof}
+
+\begin{lemma}
+  $N$ is a group.
+\end{lemma}
+
+\begin{proof}
+  ~\begin{enumerate}
+    \item For the identity map, put $a = 0$ and $c = 1$. 
+    \item The inverse is of the same form (routine algebra).
+    \item The composition too (same).
+  \end{enumerate}
+\end{proof}
+
+\begin{lemma}[Schwartz]
+  Let $f \col D \to D$ be an analytic function, $f(0) = 0$.
+  Then $\a{f(z)} \le \a{z}$ for all $z \in D$.
+  If the equality is reached for some $z \ne 0$, then exists $\ga \in D$ such that $f(z) = \ga z$ for all $z$.
+\end{lemma}
+
+In particular, $N \ge \Stab_{\Aut D}(0)$.
+
+\begin{proof}
+  Suppose $f$ is analytic in some ball of radius $R > 1$ with centre at 0.
+  Let $g(z) := f(z)/z$.
+  $g$ is holomorphic with $\a{z} < R$ and $z \ne 0$.
+  $g$ can be continued to an analytic function in the ball of radius $R$ around 0 (including 0).
+  If $\a{z} = 1$, then, by passage to the limit,
+  $$ \a{g(z)} = \a{f(z)}/\a{z} = \a{f(z)} \le 1. $$
+  By the maximum modulus principle, the conclusion holds.
+  
+  In the general case, consider $f_r(z) := f(rz)$.
+  $f_r$ is defined and holomorphic with $\a{rz} < 1$; that is, when $\a{z} < 1/r =: R$.
+  For sure, $R > 1$.
+  By the case already considered, $\a{f_r(z)} \le \a{z}$ for all $z \in D$, and so $\a{f(rz)} \le \a{z}$ for all $z$ with $\a{z} < 1$.
+  
+  Suppose now, the equality is reached for some $z \in D \sm \b{0}$.
+  Since $z$ is internal for $D$, $g$ must be constant by the maximum modulus principle.
+\end{proof}
+
+\begin{theorem}
+  $N = \Aut D$.
+\end{theorem}
+
+\begin{proof}
+  We show that $N$ contains the stabiliser of zero.
+  Let $\phi \in \Aut D$, $\phi(0) = 0$.
+  By the Schwartz's lemma, $\a{\phi(z)} \le \a{z}$ for all $z \in D$.
+  By symmetry,
+  $ \a{\phi^{-1}(z)} \le \a{z} $
+  for all $z \in D$.
+  Then $\a{z} = \a{\phi^{-1} \circ \phi(z)} \le \a{\phi(z)}$, so $\phi(z) = \a{z}$ everywhere in $D$.
+  
+  To see that $N$ acts transitively, observe that $f(a) = 0$ and $f(0) = -ca$ for every $f\in N$.
+  Now we can apply the lemma from page \pageref{transitive subgroup that contains a stabiliser is the whole G}.
+\end{proof}
+
+\section{Examples of conformal maps}
+
+\begin{lemma}
+  Let $\Pi_- = \b{z \in \C \mid \Re(z) < 0}$, $\psi \col z \mapsto \frac{z-a}{z+\ol a}$, $\Re a < 0$.
+  Then
+  $$ \psi(\Pi_-) = D. $$
+\end{lemma}
+
+\begin{proof}
+  It is straightforward to show that $\psi(\Pi_-) \ss \D$.
+  Likewise, $1/\psi(\Pi_+) \ss D$.
+  Hence $\phi(\Pi_-) \ss D$, $\phi(\Pi_+) \ss \wh \C \sm \D$, $\phi(i \R) \ss \S^1$.
+  Since $\phi$ is an automorphism, this implies the desired.
+\end{proof}
+
+\begin{lemma}
+  All Möbius transforms map circles on the Riemann sphere into circles.
+\end{lemma}
+
+\begin{proof}
+  The maps $z+a, az, 1/z$ generate $\Aut \wh \C$ --- for them it is obvious.
+\end{proof}
+
+\begin{lemma}
+  A Möbius transform is uniquely determined by images of three points.
+\end{lemma}
+
+\begin{proof}
+  $$
+  \frac{\frac{z-z_1}{z-z_2}}{\frac{z_3-z_1}{z_3-z_2}}
+  =
+  \frac{\frac{w-w_1}{w-w_2}}{\frac{w_3-w_1}{w_3-w_2}}.
+  $$
+\end{proof}
+
+\section{Convergence of analytic functions}
+
+\begin{definition}
+  We say that a sequence $\b{f_n} \ss \Hol G$ \emph{converges compactly} to $f \col G \to \C$, iff, for every compact $K \ss G$,
+  $$ f_n|_K \rightrightarrows f|_K. $$
+\end{definition}
+
+\begin{example}
+  Let $G = \b{z \mid \a{z} < 1}$.
+  The sequence $f_n = \frac{1}{n} \cdot \frac{1}{1-z^2}$ converges pointwise, but not uniformly; hence does not converge in the above sense.   
+\end{example}
+
+\begin{theorem}[1st of Weierstrass]
+  If $f_n \to f$ compactly, then $f$ is holomorphic in $G$.
+\end{theorem}
+
+\begin{proof}
+  By Stokes-Seidel theorem, $f$ is continuous.
+  We show that the integral over the boundary $B$ of any rectangle in $G$ is zero; then the theorem follows from the Cauchy's theorem on closedness, page \pageref{Cauchy, on closedness}.
+  Observe that
+  \begin{align*}
+    \a{\ \int_{B} f(z) \d z - \int_B f_n(z) \d z\ }
+    &\le \max_{z \in B} \a{f(z)-f_n(z)} \cdot \const \\
+    &\xrightarrow[n \to \infty]{} 0.
+  \end{align*} 
+  But the integral over any $f_n$ is zero (they are analytic in $G$).
+\end{proof}
+
+\begin{theorem}[2nd of Weierstrass]
+  If $f_n \to f$ compactly, then $f_n' \to f'$ compactly.
+\end{theorem}
+
+\begin{proof}
+  Let $K$ be a closed ball of radius $r$ with centre at some $z_0$, $\ol K \ss G$, $\gg := \pd K$.
+  $$ f'_n(z) = \frac{1}{2 \pi i} \int_{\gg} \frac{f(\gz) \d \gz}{(\gz-z)^2}. $$
+  When $z \in \ol K$, the denominator is nonzero, so $f_n' \rightrightarrows f'$ on $K$.
+  
+  If $K$ is a general compact set, we can cover it with a finite number of balls and do the same.
+\end{proof}
+
+\section{Normal families}
+
+\begin{definition}
+  Let $G$ be a domain, $F$ a set of functions on $G$.
+  $F$ is \emph{normal}, iff
+  \begin{align*}
+    \fa \text{compact } K \ss G\ 
+    \ex c > 0\ 
+    \fa f \in F\ 
+    \col \a{f|_K} < c.
+  \end{align*}
+\end{definition}
+
+\begin{lemma}
+  If $F$ is normal, then $F' := \b{f' \mid f \in F}$ is normal.
+\end{lemma}
+
+\begin{proof}
+  Repeats the proof of the second theorem of Weierstrass.
+\end{proof}
+
+\begin{theorem}[Montel]
+  Equivalent are:
+  \begin{enumerate}
+    \item $F$ is normal.
+    \item Any sequence $\b{f_n}$ with $f_n \in F$ has a compactly convergent subsequence.
+  \end{enumerate}  
+\end{theorem}
+
+\begin{proof}[$2 \Rightarrow 1$]
+  Suppose otherwise: on some compact the functions $f_n$ are not uniformly bounded; i.e., there is a diverging (in this sense) sequence of functions. But they have 
+\end{proof}
+
+\begin{proof}[$1 \Rightarrow 2$]
+  For every $f \in F$, $z_1, z_2 \in G$,
+  $$ \a{f(z_2)-f(z_1)} \le \sup_{\xi \in [z_1, z_2]} \a{f'(\xi)} \cdot \a{z_2-z_1} \le c \a{z_2-z_1} $$
+  for some $c > 0$, since the set $T_\gd := \b{z\in G \mid \dist(z, E) \le \gd}$ is compact, and we can bound $F'$ on $T_\gd$ by its normality and the previous lemma.
+  Therefore, $F$ is uniformly equicontinuous.
+  The Arcela--Askoli theorem states it must be uniformly bounded.
+  
+  Now we apply the diagonal process.
+  Let $E_1 \ss E_2 \ss \dots$ be an exhausting sequence of compacts for $G$ (that is, $E_j \ss \Int E_{j+1}$ and $\bigcup E_j = G$).
+  Let $\b{f^m_n}$ be a family of sequences such that $\b{f^{m+1}_n}$ is a subsequence of $\b{f^m_n}$ that converges on $E_m$.
+  Then the diagonal sequence $\b{f^n_n}_n$ converges on every of $E_\s$.  
+\end{proof}
+
+\section{Analytic continuation}
+
+Let $f \col G \to \C$ be analytic.
+How easy is it continue outwards of $G$?
+
+\begin{definition}
+  Let $G_1, G_2 \ss \C$ be domains such that $G_1 \cap G_2$ is also connected.
+  Let $f_i \in \Hol G_i$ for $i \in \b{1, 2}$.
+  $f_2$ is said to be a \emph{direct continuation} of $f_1$ onto $G_2$, iff $f_1 = f_2$ on $G_1 \cap G_2$.
+\end{definition}
+
+\begin{definition}
+  $G$ is said to be a \emph{natural domain} for $f \in \Hol G$, iff $f$ does not admit a direct continuation onto a larger domain $G' \supset G$.
+\end{definition}
+
+\begin{theorem}[Hadamard]
+  The unit disk $D := \Int \D^2$ is the natural domain of
+  $$ f \col z \mapsto \sum_{n=1}^\infty z^{n!}. $$
+\end{theorem}
+
+\begin{proof}
+  This series indeed converges in $D$.
+  If $f$ can be continued to something larger, let $G$, this $G$ contains $z_0 \in \S^1$.
+  Let $\gz := e^{2 \pi i \ga}$ be lying on $\S^1 \cap G \ni$, with $\ga =: p/q \in \Q$.
+  Exists $\lim_{r \to 1-} f(r \gz)$.
+  But then $f(r\gz) \xrightarrow[r \to 1-]{} \infty$ (the addends become large from the $q$th one).
+\end{proof}
+
+\begin{definition}
+  A pair $(G, f)$, where $f \in \Hol G$ and $G$ is a ball with centre at some $z_0$, is called an \emph{element} of an analytic function. If the radius of $r$ is maximal, the element is called \emph{natural}. 
+\end{definition}
+
+Of course, $G$ may not be the natural domain for $f$.
+
+\begin{definition}
+  Let $(D_1, f_1), (D_2, f_2)$ be elements.
+  The second of the them is the \emph{continuation} of the first one along some path $\gg$, iff exists $\phi \col [0,1] \to \C$ such that for every $t \in [a,b]$ there exists an element $(D_t, f_t)$ of an analytic function, with $D_t$ having the centre at $\gg(t)$, such that $\phi(s) = f_t\p{\gg(s)}$ for all $s \in \gg^{-1}(D_t)$.
+\end{definition}
+
+The function $\phi$ is as smooth as the path $\gg$. 
